@@ -19,8 +19,9 @@ app.use(morgan("common"));
 app.use(
   cors({
     credentials: true,
-    // origin: process.env.CLIENT_URL,
-    origin: true,
+    origin: process.env.CLIENT_URL,
+    // origin: "http://localhost:5173",
+    // origin: true,
   })
 );
 
