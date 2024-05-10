@@ -15,13 +15,16 @@ function OTPVerification() {
     e.preventDefault();
     try {
       const email = serarchParams.get("email");
-      const response = await fetch("http://localhost:8000/otp/verifyOTP", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, otp }),
-      });
+      const response = await fetch(
+        "https://otp-verification-gg3p.onrender.com/otp/verifyOTP",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, otp }),
+        }
+      );
       const data = await response.json();
       console.log(data);
 

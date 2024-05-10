@@ -12,19 +12,24 @@ function Demo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/otp/sendOTP", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
       const data = await response.json();
       console.log(data);
 
       if (data.success) {
         toast.success("OTP sent successfully! Check your Email");
-        navigate(`/otp-verification?email=${email}`);
+        setTimeout(() => {
+          navigate(`/otp-verification?email=${email}`);
+        }, 2000);
       } else {
         toast.error("Server Error: " + data.error);
       }
