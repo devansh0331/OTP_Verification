@@ -21,7 +21,7 @@ export const sendOTP = async (req, res, next) => {
     await sendEmail({
       to: email,
       subject: "Your OTP",
-      message: `<p>Your OTP is: <strong>${otp}</strong></p>`,
+      message: `<p>Hello User! <br><br>Here is your OTP: <h2><strong>${otp}</strong><h2></p>`,
     });
 
     res.status(200).json({ success: true, message: "OTP sent successfully" });
