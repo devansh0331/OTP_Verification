@@ -3,38 +3,46 @@ import demo from "../assets/demo.png";
 import { Input } from "@material-tailwind/react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Triangle } from "react-loader-spinner";
 
 function Demo() {
   const [email, setEmail] = useState("");
-
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-      const data = await response.json();
-      console.log(data);
+    if (email != "") {
+      try {
+        setVisible(true);
+        const response = await fetch(
+          "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
+          // "http://localhost:8000/otp/sendOTP",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+          }
+        );
+        const data = await response.json();
+        console.log(data);
 
-      if (data.success) {
-        toast.success("OTP sent successfully! Check your Email");
-        setTimeout(() => {
-          navigate(`/otp-verification?email=${email}`);
-        }, 2000);
-      } else {
-        toast.error("Server Error: " + data.error);
+        if (data.success) {
+          setVisible(false);
+          toast.success("OTP sent successfully! Check your Email");
+          setTimeout(() => {
+            navigate(`/otp-verification?email=${email}`);
+          }, 2000);
+        } else {
+          toast.error("Server Error: " + data.error);
+        }
+      } catch (error) {
+        toast.error("Client Error: " + error);
       }
-    } catch (error) {
-      toast.error("Client Error: " + error);
+    } else {
+      toast.error("Please enter your email");
     }
   };
 
@@ -49,6 +57,7 @@ function Demo() {
           <h1 className="text-xl text-left text-white">
             Make sure to enter the valid email address
           </h1>
+
           <div className="mt-5">
             <Input
               color="red"
@@ -59,13 +68,24 @@ function Demo() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="w-full flex flex-col md:flex-row items-center justify-evenly md:justify-start text-xl mt-3">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between md:justify-between text-xl mt-3">
             <button
               onClick={handleSubmit}
-              className="w-full md:w-2/5 bg-red-600 text-white px-5 py-1 rounded-md hover:bg-red-900 mt-3"
+              className="w-full md:w-2/5 bg-red-600 text-white px-5 py-1 rounded-md hover:bg-red-900 mt-3 md:mr-5 mb-5 md:mb-0"
             >
               Submit
             </button>
+            <Triangle
+              visible={visible}
+              // visible={false}
+              height="40"
+              width="40"
+              color="white"
+              // color="red"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
           </div>
         </div>
         <Toaster position="top-right" />

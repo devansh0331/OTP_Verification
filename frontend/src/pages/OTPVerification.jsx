@@ -3,6 +3,7 @@ import demo from "../assets/otp-verification.png";
 import { Input } from "@material-tailwind/react";
 import { Toaster, toast } from "react-hot-toast";
 import { useParams, useSearchParams } from "react-router-dom";
+import { Triangle } from "react-loader-spinner";
 
 function OTPVerification() {
   const [serarchParams] = useSearchParams();
@@ -11,30 +12,39 @@ function OTPVerification() {
 
   const [otp, setOTP] = useState("");
 
+  const [visible, setVisible] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const email = serarchParams.get("email");
-      const response = await fetch(
-        "https://otp-verification-gg3p.onrender.com/otp/verifyOTP",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, otp }),
-        }
-      );
-      const data = await response.json();
-      console.log(data);
+    if (otp != "") {
+      try {
+        setVisible(true);
+        const email = serarchParams.get("email");
+        const response = await fetch(
+          "https://otp-verification-gg3p.onrender.com/otp/verifyOTP",
+          // "http://localhost:8000/otp/verifyOTP",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, otp }),
+          }
+        );
+        const data = await response.json();
+        console.log(data);
 
-      if (data.success) {
-        toast.success("OTP Successfully Verified");
-      } else {
-        toast.error("Server Error: " + data.error);
+        if (data.success) {
+          setVisible(false);
+          toast.success("OTP Successfully Verified");
+        } else {
+          toast.error("Server Error: " + data.error);
+        }
+      } catch (error) {
+        toast.error("Client Error: " + error);
       }
-    } catch (error) {
-      toast.error("Client Error: " + error);
+    } else {
+      toast.error("OTP cannot be empty");
     }
   };
 
@@ -59,13 +69,24 @@ function OTPVerification() {
               onChange={(e) => setOTP(e.target.value)}
             />
           </div>
-          <div className="w-full flex flex-col md:flex-row items-center justify-evenly md:justify-start text-xl mt-3">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between md:justify-between text-xl mt-3">
             <button
               onClick={handleSubmit}
-              className="w-full md:w-2/5 bg-red-600 text-white px-5 py-1 rounded-md hover:bg-red-900 mt-3"
+              className="w-full md:w-2/5 bg-red-600 text-white px-5 py-1 rounded-md hover:bg-red-900 mt-3 md:mr-5 mb-5 md:mb-0"
             >
-              Verify
+              Submit
             </button>
+            <Triangle
+              visible={visible}
+              // visible={false}
+              height="40"
+              width="40"
+              color="white"
+              // color="red"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
           </div>
         </div>
         <Toaster position="top-right" />

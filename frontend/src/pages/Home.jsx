@@ -20,7 +20,10 @@ function Home() {
           and verify it. Docs available for the setup of your real-time project.
         </h1>
         <div className="w-full flex flex-col md:flex-row items-center justify-evenly md:justify-start text-xl mt-3">
-          <button className="w-full md:w-1/5 bg-red-600 text-white px-5 py-1 rounded-md hover:bg-red-900">
+          <button
+            onClick={() => navigate("/docs")}
+            className="w-full md:w-1/5 bg-red-600 text-white px-5 py-1 rounded-md hover:bg-red-900"
+          >
             Read Docs
           </button>
           <button
