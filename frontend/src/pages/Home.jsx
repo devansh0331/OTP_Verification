@@ -38,7 +38,7 @@ function Home() {
       <div className="absolute w-full bottom-2 p-6 text-lg text-white">
         <div className="w-full flex items-center justify-between">
           <div>
-            <p>
+            <p className="italic">
               No Copyrights © :{" "}
               <a href="https://github.com/devansh0331/OTP_Verification">
                 Checkout on GitHub
@@ -46,7 +46,7 @@ function Home() {
             </p>
           </div>
           <div>
-            <p>
+            <p className="italic">
               Initiated & Developed by:{" "}
               <a href="https://github.com/devansh0331/">Devansh Shrivastava</a>
             </p>
