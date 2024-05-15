@@ -21,7 +21,7 @@ export const sendOTP = async (req, res, next) => {
     await sendEmail({
       to: email,
       subject: "Your One-Time Password (OTP) for Verification",
-      message: `<p>Dear User!<br><br>Your One-Time Password (OTP) for verification is: <span><h2><strong>${otp}</strong><h2></span> <br> <br>  Please do not share this code with anyone.<br>If you did not request this OTP, please ignore this email or contact our support team.<br><br>Thank you,<br>Devansh Shrivastava</p>`,
+      message: `<p>Dear User!<br><br>Your One-Time Password (OTP) for verification is: <span><h2><strong>${otp}</strong><h2></span> <br>Please do not share this code with anyone.<br>If you did not request this OTP, please ignore this email or contact our support team.<br><br>Thank you,<br>Devansh Shrivastava</p>`,
     });
 
     res.status(200).json({ success: true, message: "OTP sent successfully" });
