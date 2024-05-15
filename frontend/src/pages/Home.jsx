@@ -35,12 +35,15 @@ function Home() {
         </div>
       </div>
       <img src={Illustration} alt="" className="h-auto  md:flex-1 " />
-      <div className="absolute w-full bottom-2 p-6 text-lg text-white">
+      <div className="absolute w-full bottom-2 p-6 text-sm text-white">
         <div className="w-full flex items-center justify-between">
-          <div>
+          <div className="">
             <p className="italic">
               No Copyrights © :{" "}
-              <a href="https://github.com/devansh0331/OTP_Verification">
+              <a
+                className="font-bold"
+                href="https://github.com/devansh0331/OTP_Verification"
+              >
                 Checkout on GitHub
               </a>{" "}
             </p>
@@ -48,7 +51,9 @@ function Home() {
           <div>
             <p className="italic">
               Initiated & Developed by:{" "}
-              <a href="https://github.com/devansh0331/">Devansh Shrivastava</a>
+              <a className="font-bold" href="https://github.com/devansh0331/">
+                Devansh Shrivastava
+              </a>
             </p>
           </div>
         </div>
