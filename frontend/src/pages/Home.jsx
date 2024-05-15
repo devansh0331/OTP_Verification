@@ -41,7 +41,7 @@ function Home() {
             <p>
               No Copyrights © :{" "}
               <a href="https://github.com/devansh0331/OTP_Verification">
-                Available on GitHub
+                Checkout on GitHub
               </a>{" "}
             </p>
           </div>
