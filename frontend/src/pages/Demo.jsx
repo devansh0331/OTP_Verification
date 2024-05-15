@@ -4,6 +4,7 @@ import { Input } from "@material-tailwind/react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Triangle } from "react-loader-spinner";
+import validator from "validator";
 
 function Demo() {
   const [email, setEmail] = useState("");
@@ -12,34 +13,39 @@ function Demo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email != "") {
-      try {
-        setVisible(true);
-        const response = await fetch(
-          "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
-          // "http://localhost:8000/otp/sendOTP",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email }),
-          }
-        );
-        const data = await response.json();
-        console.log(data);
 
-        if (data.success) {
-          setVisible(false);
-          toast.success("OTP sent successfully! Check your Email");
-          setTimeout(() => {
-            navigate(`/otp-verification?email=${email}`);
-          }, 2000);
-        } else {
-          toast.error("Server Error: " + data.error);
+    if (email != "") {
+      if (!validator.isEmail(email)) {
+        toast.error("Please enter a valid email address");
+      } else {
+        try {
+          setVisible(true);
+          const response = await fetch(
+            "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
+            // "http://localhost:8000/otp/sendOTP",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email }),
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+
+          if (data.success) {
+            setVisible(false);
+            toast.success("OTP sent successfully! Check your Email");
+            setTimeout(() => {
+              navigate(`/otp-verification?email=${email}`);
+            }, 2000);
+          } else {
+            toast.error("Server Error: " + data.error);
+          }
+        } catch (error) {
+          toast.error("Client Error: " + error);
         }
-      } catch (error) {
-        toast.error("Client Error: " + error);
       }
     } else {
       toast.error("Please enter your email");

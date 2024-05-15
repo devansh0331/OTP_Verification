@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   return (
-    <div className="w-screen flex flex-col md:flex-row items-center justify-evenly h-screen bg-gray-900">
-      <div className="w-full md:w-3/5 h-3/5 md:flex:1  rounded-xl p-2 md:p-5 ">
+    <div className="relative w-screen flex flex-col md:flex-row items-center justify-evenly h-screen bg-gray-900">
+      <div className="w-full h-fit md:w-3/5 md:flex:1  rounded-xl p-2 md:p-5 ">
         <h1 className="text-xl text-center md:text-left text-white">
           Welcome to the
         </h1>
@@ -35,6 +35,24 @@ function Home() {
         </div>
       </div>
       <img src={Illustration} alt="" className="h-auto  md:flex-1 " />
+      <div className="absolute w-full bottom-2 p-6 text-lg text-white">
+        <div className="w-full flex items-center justify-between">
+          <div>
+            <p>
+              No Copywrites © :{" "}
+              <a href="https://github.com/devansh0331/OTP_Verification">
+                Available on GitHub
+              </a>{" "}
+            </p>
+          </div>
+          <div>
+            <p>
+              Initiated & Developed by:{" "}
+              <a href="https://github.com/devansh0331/">Devansh Shrivastava</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
