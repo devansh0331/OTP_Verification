@@ -39,7 +39,7 @@ function Home() {
         <div className="w-full flex items-center justify-between">
           <div>
             <p>
-              No Copywrites © :{" "}
+              No Copyrights © :{" "}
               <a href="https://github.com/devansh0331/OTP_Verification">
                 Available on GitHub
               </a>{" "}
