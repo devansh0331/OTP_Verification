@@ -42,10 +42,10 @@ function OTPVerification() {
         setOpen(true);
         // toast.success("OTP Successfully Verified");
       } else {
-        toast.error("Server Error: " + data.error);
+        toast.error(data.error);
       }
     } catch (error) {
-      toast.error("Client Error: " + error);
+      toast.error(error);
     }
   };
 

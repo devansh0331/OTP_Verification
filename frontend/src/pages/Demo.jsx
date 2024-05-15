@@ -41,10 +41,10 @@ function Demo() {
               navigate(`/otp-verification?email=${email}`);
             }, 2000);
           } else {
-            toast.error("Server Error: " + data.error);
+            toast.error(data.error);
           }
         } catch (error) {
-          toast.error("Client Error: " + error);
+          toast.error(error);
         }
       }
     } else {
