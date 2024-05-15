@@ -3,8 +3,6 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/users.js";
 import otpRoutes from "./routes/otp.js";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -26,8 +24,6 @@ app.use(
 );
 
 // ROUTES
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
 app.use("/otp", otpRoutes);
 
 const PORT = process.env.PORT || 5000;
