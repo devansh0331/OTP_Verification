@@ -18,33 +18,39 @@ function Demo() {
       if (!validator.isEmail(email)) {
         toast.error("Please enter a valid email address");
       } else {
-        try {
-          setVisible(true);
-          const response = await fetch(
-            "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
-            // "http://localhost:8000/otp/sendOTP",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ email }),
-            }
-          );
-          const data = await response.json();
-          console.log(data);
+        // setVisible(true);
+        if (email.slice("@")[1] != "gmail") {
+          toast.error("Please enter a valid gmail address");
+          // setVisible(false);
+        } else {
+          try {
+            setVisible(true);
+            const response = await fetch(
+              "https://otp-verification-gg3p.onrender.com/otp/sendOTP",
+              // "http://localhost:8000/otp/sendOTP",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+              }
+            );
+            const data = await response.json();
+            console.log(data);
 
-          if (data.success) {
-            setVisible(false);
-            toast.success("OTP sent successfully! Check your Email");
-            setTimeout(() => {
-              navigate(`/otp-verification?email=${email}`);
-            }, 2000);
-          } else {
-            toast.error(data.error);
+            if (data.success) {
+              setVisible(false);
+              toast.success("OTP sent successfully! Check your Email");
+              setTimeout(() => {
+                navigate(`/otp-verification?email=${email}`);
+              }, 2000);
+            } else {
+              toast.error(data.error);
+            }
+          } catch (error) {
+            toast.error(error);
           }
-        } catch (error) {
-          toast.error(error);
         }
       }
     } else {
